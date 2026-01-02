@@ -46,6 +46,14 @@ import (
 // @description Type "Bearer" followed by a space and JWT token.
 
 func main() {
+	// Initialize logger
+	if err := middleware.InitLogger(); err != nil {
+		log.Fatalf("Failed to initialize logger: %v", err)
+	}
+	defer middleware.CloseLogger()
+
+	log.Println("Initializing Pakistani ERP System in development mode...")
+
 	// Initialize dependency container
 	c, err := container.NewContainer()
 	if err != nil {
@@ -63,8 +71,8 @@ func main() {
 
 	// Global middleware
 	router.Use(gin.Recovery())
-	router.Use(middleware.LoggerMiddleware())
 	router.Use(middleware.TraceIDMiddleware())
+	router.Use(middleware.LoggerMiddleware())
 	router.Use(middleware.CORSMiddleware(
 		c.Config.CORS.AllowedOrigins,
 		c.Config.CORS.AllowedMethods,

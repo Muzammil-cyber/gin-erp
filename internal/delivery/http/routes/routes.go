@@ -29,6 +29,9 @@ func SetupRoutes(router *gin.Engine, config *RouterConfig) {
 	// API v1
 	v1 := router.Group("/api/v1")
 	{
+		// Health check in API v1
+		v1.GET("/health", healthCheck)
+
 		// Public auth routes
 		auth := v1.Group("/auth")
 		{
@@ -94,6 +97,7 @@ func SetupRoutes(router *gin.Engine, config *RouterConfig) {
 // @Tags system
 // @Produce json
 // @Success 200 {object} utils.Response
+// @BasePath /
 // @Router /health [get]
 func healthCheck(c *gin.Context) {
 	utils.SuccessResponse(c, 200, gin.H{

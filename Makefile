@@ -1,4 +1,4 @@
-.PHONY: help run build test test-coverage clean docker-up docker-down migrate lint swagger
+.PHONY: help run build test test-coverage clean docker-up docker-down migrate lint swagger trace logs logs-all
 
 help: ## Display this help screen
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -69,3 +69,17 @@ swagger: ## Generate swagger documentation
 	@echo "Generating swagger documentation..."
 	@swag init -g cmd/api/main.go
 	@echo "✓ Swagger documentation generated in docs/"
+
+trace: ## Trace request by TraceID (usage: make trace ID=your-trace-id)
+	@if [ -z "$(ID)" ]; then \
+		echo "❌ Error: TraceID is required"; \
+		echo "Usage: make trace ID=09e7f0fd-e523-4681-a743-f73a764b52ca"; \
+		exit 1; \
+	fi
+	@./scripts/trace.sh $(ID)
+
+logs: ## View latest log file
+	@tail -f logs/app-$$(date +%Y-%m-%d).log
+
+logs-all: ## View all logs
+	@cat logs/*.log
