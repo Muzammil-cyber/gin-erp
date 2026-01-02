@@ -8,7 +8,7 @@ This project uses Swagger/OpenAPI for API documentation. The Swagger UI provides
 
 Once the server is running, access Swagger UI at:
 
-```
+```http
 http://localhost:8080/swagger/index.html
 ```
 
@@ -73,7 +73,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 ## Swagger Annotation Tags
 
 | Tag | Description | Example |
-|-----|-------------|---------|
+| ----- | ------------- | --------- |
 | `@Summary` | Short description | `@Summary Login user` |
 | `@Description` | Detailed description | `@Description Authenticate user with email/phone and password` |
 | `@Tags` | Group endpoints | `@Tags Auth` |
@@ -97,7 +97,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 
 2. **Open Swagger UI** in your browser:
 
-   ```
+   ```http
    http://localhost:8080/swagger/index.html
    ```
 

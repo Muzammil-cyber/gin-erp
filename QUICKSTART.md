@@ -243,7 +243,7 @@ The system supports 4 roles with different permissions:
 
 ## 📊 Project Structure Overview
 
-```
+```tree
 gin-erp/
 ├── cmd/api/main.go              # Application entry point
 ├── internal/
@@ -331,7 +331,3 @@ For issues or questions:
 - Check the [README.md](README.md) for detailed documentation
 - Review the code comments
 - Check integration tests for usage examples
-
----
-
-**Happy Coding! 🚀**

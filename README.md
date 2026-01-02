@@ -56,7 +56,7 @@ A production-ready, scalable ERP system boilerplate built with **Gin Web Framewo
 
 ## 📁 Project Structure
 
-```
+```tree
 gin-erp/
 ├── cmd/
 │   └── api/
@@ -121,7 +121,7 @@ gin-erp/
 
 ## 🛠️ Prerequisites
 
-- **Go 1.23+**
+- **Go 1.25+**
 - **MongoDB 6.0+**
 - **Redis 7+**
 - **Docker & Docker Compose** (optional, for running dependencies)
@@ -131,8 +131,7 @@ gin-erp/
 ### 1. Clone the Repository
 
 ```bash
-cd /path/to/your/workspace
-# Project already exists in your workspace
+git clone repo-link
 ```
 
 ### 2. Install Dependencies
@@ -145,7 +144,6 @@ make deps
 
 ```bash
 cp .env.example .env
-# Edit .env with your configuration
 ```
 
 ### 4. Start Dependencies (Using Docker)
@@ -186,7 +184,7 @@ For detailed documentation on using Swagger, see [SWAGGER.md](SWAGGER.md).
 ### Public Endpoints
 
 | Method | Endpoint | Description |
-|--------|----------|-------------|
+| -------- | ---------- | ------------- |
 | GET | `/health` | Health check |
 | POST | `/api/v1/auth/register` | Register a new user |
 | POST | `/api/v1/auth/login` | Login user |
@@ -197,7 +195,7 @@ For detailed documentation on using Swagger, see [SWAGGER.md](SWAGGER.md).
 ### Protected Endpoints (Require Authentication)
 
 | Method | Endpoint | Description | Required Role |
-|--------|----------|-------------|---------------|
+| -------- | ---------- | ------------- | --------------- |
 | GET | `/api/v1/auth/profile` | Get user profile | Any authenticated |
 | GET | `/api/v1/admin/users` | Admin endpoint | Admin |
 | GET | `/api/v1/finance/reports` | Finance reports | Admin, Finance Manager |
@@ -407,7 +405,3 @@ Created by [Muzammil Loya](https://github.com/muzammil-cyber)
 - Inspired by clean architecture principles
 - Built for the Pakistani market with localized features
 - Designed for high-scale ERP systems
-
----
-
-**Happy Coding! 🎉**
