@@ -63,5 +63,5 @@ dev: ## Run with hot reload (requires air)
 
 swagger: ## Generate swagger documentation
 	@echo "Generating swagger documentation..."
-	@$(shell go env GOPATH)/bin/swag init -g cmd/api/main.go
+	@swag init -g cmd/api/main.go
 	@echo "✓ Swagger documentation generated in docs/"
