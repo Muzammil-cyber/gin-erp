@@ -14,7 +14,37 @@ import (
 	"github.com/muzammil-cyber/gin-erp/internal/container"
 	"github.com/muzammil-cyber/gin-erp/internal/delivery/http/middleware"
 	"github.com/muzammil-cyber/gin-erp/internal/delivery/http/routes"
+
+	_ "github.com/muzammil-cyber/gin-erp/docs" // swagger docs
 )
+
+// @title Pakistani ERP System API
+// @version 1.0
+// @description A production-ready ERP system API built with Gin framework following DDD principles
+// @description
+// @description Features:
+// @description - JWT-based authentication with token rotation
+// @description - Role-based access control (Admin, Customer, Finance Manager, Manager)
+// @description - Pakistani phone number validation (+923xxxxxxxxx)
+// @description - Email OTP verification with 5-minute TTL
+// @description - Redis-based rate limiting
+// @description - MongoDB for data storage
+// @description - Redis for caching and OTP storage
+
+// @contact.name Muzammil Loya
+// @contact.url https://github.com/muzammilloya
+// @contact.email muzammil@example.com
+
+// @license.name MIT
+// @license.url https://opensource.org/licenses/MIT
+
+// @host localhost:8080
+// @BasePath /api/v1
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description Type "Bearer" followed by a space and JWT token.
 
 func main() {
 	// Initialize dependency container

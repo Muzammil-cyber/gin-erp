@@ -52,6 +52,7 @@ A production-ready, scalable ERP system boilerplate built with **Gin Web Framewo
 - **Environment-based Configuration** using Viper
 - **Docker Compose** setup for MongoDB and Redis
 - **Health Check Endpoint**
+- **Swagger/OpenAPI Documentation** - Interactive API documentation at `/swagger/index.html`
 
 ## 📁 Project Structure
 
@@ -175,6 +176,12 @@ make dev           # Run with hot reload
 The server will start on `http://localhost:8080`
 
 ## 📡 API Endpoints
+
+### API Documentation
+
+**Interactive Swagger UI**: [http://localhost:8080/swagger/index.html](http://localhost:8080/swagger/index.html)
+
+For detailed documentation on using Swagger, see [SWAGGER.md](SWAGGER.md).
 
 ### Public Endpoints
 

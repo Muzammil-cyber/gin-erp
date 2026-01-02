@@ -24,7 +24,7 @@ func NormalizePakistaniPhone(phone string) string {
 	phone = strings.ReplaceAll(phone, "-", "")
 
 	// If starts with 0, replace with +92
-	if strings.HasPrefix(phone, "0") {
+	if strings.HasPrefix(phone, "03") {
 		phone = "+92" + phone[1:]
 	}
 

@@ -2,6 +2,9 @@ package routes
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+
 	"github.com/muzammil-cyber/gin-erp/internal/delivery/http/handler"
 	"github.com/muzammil-cyber/gin-erp/internal/delivery/http/middleware"
 	domain "github.com/muzammil-cyber/gin-erp/internal/domain/auth"
@@ -17,13 +20,11 @@ type RouterConfig struct {
 
 // SetupRoutes sets up all routes
 func SetupRoutes(router *gin.Engine, config *RouterConfig) {
+	// Swagger documentation
+	router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
 	// Health check
-	router.GET("/health", func(c *gin.Context) {
-		utils.SuccessResponse(c, 200, gin.H{
-			"status":  "ok",
-			"service": "Pakistani ERP System",
-		})
-	})
+	router.GET("/health", healthCheck)
 
 	// API v1
 	v1 := router.Group("/api/v1")
@@ -85,4 +86,18 @@ func SetupRoutes(router *gin.Engine, config *RouterConfig) {
 			}
 		}
 	}
+}
+
+// healthCheck godoc
+// @Summary Health check
+// @Description Check if the API is running
+// @Tags system
+// @Produce json
+// @Success 200 {object} utils.Response
+// @Router /health [get]
+func healthCheck(c *gin.Context) {
+	utils.SuccessResponse(c, 200, gin.H{
+		"status":  "ok",
+		"service": "Pakistani ERP System",
+	})
 }

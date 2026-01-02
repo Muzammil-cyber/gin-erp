@@ -1,4 +1,4 @@
-.PHONY: help run build test test-coverage clean docker-up docker-down migrate lint
+.PHONY: help run build test test-coverage clean docker-up docker-down migrate lint swagger
 
 help: ## Display this help screen
 	@grep -h -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -51,8 +51,17 @@ tidy: ## Tidy dependencies
 
 install-tools: ## Install development tools
 	@echo "Installing tools..."
-	@go install github.com/cosmtrek/air@latest
+	@go install github.com/air-verse/air@latest
+	@go install github.com/swaggo/swag/cmd/swag@latest
 	@go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+	@echo "✓ Tools installed to $(shell go env GOPATH)/bin"
+	@echo "💡 Add $(shell go env GOPATH)/bin to your PATH or use 'make dev' to run with hot reload"
 
 dev: ## Run with hot reload (requires air)
+	@echo "Starting development server with hot reload..."
 	@air
+
+swagger: ## Generate swagger documentation
+	@echo "Generating swagger documentation..."
+	@$(shell go env GOPATH)/bin/swag init -g cmd/api/main.go
+	@echo "✓ Swagger documentation generated in docs/"

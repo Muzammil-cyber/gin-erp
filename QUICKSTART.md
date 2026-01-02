@@ -60,6 +60,14 @@ make dev
 
 The server will start on: **<http://localhost:8080>**
 
+### Step 5: Access Swagger UI (Optional)
+
+Open your browser and navigate to:
+
+**<http://localhost:8080/swagger/index.html>**
+
+This provides an interactive interface to test all API endpoints. See [SWAGGER.md](SWAGGER.md) for details.
+
 ## 📡 Test the API
 
 ### 1. Health Check
