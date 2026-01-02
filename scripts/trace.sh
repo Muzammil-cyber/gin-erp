@@ -26,12 +26,13 @@ fi
 found=0
 for logfile in "$LOG_DIR"/*.log; do
     if [ -f "$logfile" ]; then
-        matches=$(grep -c "$TRACE_ID" "$logfile" 2>/dev/null || echo "0")
+        matches=$(grep -ac "$TRACE_ID" "$logfile" 2>/dev/null || echo "0")
         if [ "$matches" -gt 0 ]; then
             echo "📁 Found $matches occurrences in: $(basename $logfile)"
             echo "────────────────────────────────────────────────────────────────"
             # Show 15 lines before and after to capture full request/response block
-            grep -B 15 -A 15 "$TRACE_ID" "$logfile" --color=always
+            # Use -a to force treating file as text (handles any binary characters)
+            grep -aB 15 -A 15 "$TRACE_ID" "$logfile" --color=always
             echo ""
             found=1
         fi

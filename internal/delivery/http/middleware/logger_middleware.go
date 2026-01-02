@@ -140,7 +140,7 @@ func LoggerMiddleware() gin.HandlerFunc {
 		// Wrap response writer to capture response body
 		blw := &responseWriter{
 			ResponseWriter: c.Writer,
-			body:          bytes.NewBufferString(""),
+			body:           bytes.NewBufferString(""),
 		}
 		c.Writer = blw
 

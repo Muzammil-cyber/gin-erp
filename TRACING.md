@@ -7,18 +7,23 @@ The ERP system now includes comprehensive request/response tracing with detailed
 ## Features
 
 ### 1. **Automatic Log Files**
+
 - Logs are automatically created in `logs/` directory
 - One log file per day: `logs/app-2026-01-03.log`
 - Logs contain both console output and detailed request/response data
 
 ### 2. **Trace ID**
+
 Every request gets a unique Trace ID that appears in:
+
 - HTTP Response Header: `X-Trace-ID`
 - Error responses in JSON: `"trace_id": "..."`
 - All log entries for that request
 
 ### 3. **Detailed Logging**
+
 Each request logs:
+
 - **Request Details**: Method, Path, Client IP, Timestamp
 - **Request Headers**: Authorization, Content-Type, etc.
 - **Request Body**: Up to 500 characters (for debugging)
@@ -29,26 +34,31 @@ Each request logs:
 ## Usage
 
 ### View Live Logs
+
 ```bash
 make logs
 ```
 
 ### Trace a Specific Request
+
 ```bash
 make trace ID=09e7f0fd-e523-4681-a743-f73a764b52ca
 ```
 
 Or use the script directly:
+
 ```bash
 ./scripts/trace.sh 09e7f0fd-e523-4681-a743-f73a764b52ca
 ```
 
 ### View All Logs
+
 ```bash
 make logs-all
 ```
 
 ### Search Logs Manually
+
 ```bash
 # Search for a trace ID
 grep "09e7f0fd-e523-4681-a743-f73a764b52ca" logs/*.log
@@ -99,17 +109,20 @@ grep "/api/v1/auth/profile" logs/*.log
 ## Best Practices
 
 ### For Developers
+
 - Always include the trace ID when logging errors in your code
 - Use structured logging for important operations
 - Keep request/response bodies reasonable in size
 
 ### For Operations
+
 - Rotate logs daily (already configured)
 - Archive old logs after 30 days
 - Monitor log file sizes
 - Set up alerts for 500 errors
 
 ### For Support
+
 - Always ask users for the trace ID from error responses
 - Use trace ID to quickly find relevant logs
 - Include trace ID when escalating issues
@@ -117,6 +130,7 @@ grep "/api/v1/auth/profile" logs/*.log
 ## Security Notes
 
 ⚠️ **Important**: Request/response bodies are logged (limited to 500 chars)
+
 - Passwords are not hidden in logs (they should be in headers/tokens, not logged)
 - Consider adding sensitive data filtering for production
 - Restrict access to log files
@@ -125,6 +139,7 @@ grep "/api/v1/auth/profile" logs/*.log
 ## Configuration
 
 To disable response body logging in production, update `logger_middleware.go`:
+
 ```go
 // Skip body logging in production
 if os.Getenv("GIN_MODE") != "release" {
@@ -135,16 +150,19 @@ if os.Getenv("GIN_MODE") != "release" {
 ## Troubleshooting
 
 ### Logs not appearing
+
 - Check if `logs/` directory exists
 - Verify file permissions (logs need write access)
 - Ensure `middleware.InitLogger()` is called in main.go
 
 ### Trace ID not found
+
 - Verify the trace ID is correct
 - Check if the request actually reached your server
 - Ensure logs are being written (check file size)
 
 ### Log files too large
+
 - Implement log rotation (see OPERATIONS.md)
 - Reduce body logging size limit
 - Filter out noisy endpoints (health checks, metrics)
@@ -152,18 +170,21 @@ if os.Getenv("GIN_MODE") != "release" {
 ## Integration with Monitoring Tools
 
 ### ELK Stack
+
 ```bash
 # Ship logs to Logstash
 filebeat -c filebeat.yml
 ```
 
 ### CloudWatch
+
 ```bash
 # AWS CloudWatch Logs Agent
 aws logs put-log-events --log-group-name erp-system
 ```
 
 ### Datadog
+
 ```bash
 # Datadog Agent
 datadog-agent logs tail logs/*.log
