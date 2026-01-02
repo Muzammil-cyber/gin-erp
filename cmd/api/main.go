@@ -32,8 +32,7 @@ import (
 // @description - Redis for caching and OTP storage
 
 // @contact.name Muzammil Loya
-// @contact.url https://github.com/muzammilloya
-// @contact.email muzammil@example.com
+// @contact.url https://github.com/muzammil-cyber
 
 // @license.name MIT
 // @license.url https://opensource.org/licenses/MIT

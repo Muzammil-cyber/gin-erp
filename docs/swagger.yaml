@@ -81,9 +81,8 @@ definitions:
 host: localhost:8080
 info:
   contact:
-    email: muzammil@example.com
     name: Muzammil Loya
-    url: https://github.com/muzammilloya
+    url: https://github.com/muzammil-cyber
   description: |-
     A production-ready ERP system API built with Gin framework following DDD principles
 

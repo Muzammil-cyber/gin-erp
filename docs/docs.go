@@ -11,8 +11,7 @@ const docTemplate = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "Muzammil Loya",
-            "url": "https://github.com/muzammilloya",
-            "email": "muzammil@example.com"
+            "url": "https://github.com/muzammil-cyber"
         },
         "license": {
             "name": "MIT",
