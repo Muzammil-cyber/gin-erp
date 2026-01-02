@@ -14,6 +14,10 @@ test: ## Run tests
 	@echo "Running tests..."
 	@go test -v -race ./...
 
+test-fail: ## Run tests and show failed test
+	@echo "Running tests and showing failed tests..."
+	@go test -v -race ./... 2>&1 | grep -E "^(FAIL|ok)"
+
 test-coverage: ## Run tests with coverage
 	@echo "Running tests with coverage..."
 	@go test -v -race -coverprofile=coverage.out ./...

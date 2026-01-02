@@ -1,4 +1,4 @@
-package usecase
+package unit
 
 import (
 	"context"
@@ -7,6 +7,7 @@ import (
 	"time"
 
 	domain "github.com/muzammil-cyber/gin-erp/internal/domain/auth"
+	"github.com/muzammil-cyber/gin-erp/internal/usecase"
 	"github.com/muzammil-cyber/gin-erp/pkg/utils"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -212,7 +213,7 @@ func TestAuthUseCase_Register(t *testing.T) {
 			tt.mockSetup(userRepo, otpRepo, emailService)
 
 			// Create use case
-			uc := NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
+			uc := usecase.NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
 
 			// Execute
 			user, err := uc.Register(context.Background(), tt.request)
@@ -344,7 +345,7 @@ func TestAuthUseCase_Login(t *testing.T) {
 			tt.mockSetup(userRepo, refreshTokenRepo)
 
 			// Create use case
-			uc := NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
+			uc := usecase.NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
 
 			// Execute
 			authResponse, err := uc.Login(context.Background(), tt.request)
@@ -423,7 +424,7 @@ func TestAuthUseCase_VerifyOTP(t *testing.T) {
 
 			tt.mockSetup(otpRepo, userRepo)
 
-			uc := NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
+			uc := usecase.NewAuthUseCase(userRepo, refreshTokenRepo, otpRepo, emailService, jwtUtil, 6, 5)
 			err := uc.VerifyOTP(context.Background(), tt.request)
 
 			if tt.expectedError != nil {

@@ -73,8 +73,7 @@ gin-erp/
 │   │       ├── usecase.go          # Use case interfaces
 │   │       └── errors.go           # Domain-specific errors
 │   ├── usecase/
-│   │   ├── auth_usecase.go         # Auth business logic
-│   │   └── auth_usecase_test.go    # Table-driven unit tests
+│   │   └── auth_usecase.go         # Auth business logic
 │   ├── repository/
 │   │   ├── mongodb/
 │   │   │   ├── user_repository.go
@@ -108,8 +107,13 @@ gin-erp/
 │       ├── otp.go                  # OTP generation
 │       └── response.go             # Standardized responses
 ├── tests/
+│   ├── unit/
+│   │   └── auth_usecase_test.go    # Unit tests for business logic
+│   ├── http/
+│   │   └── routes_test.go          # HTTP route tests
 │   └── integration/
-│       └── auth_integration_test.go # Integration tests
+│       └── auth_integration_test.go # End-to-end integration tests
+├── docs/                           # Swagger documentation (generated)
 ├── .env.example                    # Environment variables template
 ├── .gitignore
 ├── docker-compose.yml              # Docker services
