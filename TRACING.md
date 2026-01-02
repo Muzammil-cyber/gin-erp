@@ -75,7 +75,7 @@ grep "/api/v1/auth/profile" logs/*.log
 
 ## Log Format Example
 
-```
+```bash
 ═══════════════════════════════════════════════════════════════
 ▶ REQUEST | TraceID: 09e7f0fd-e523-4681-a743-f73a764b52ca
   GET /swagger/doc.json
