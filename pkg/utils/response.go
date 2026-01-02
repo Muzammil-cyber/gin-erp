@@ -16,7 +16,7 @@ type Response struct {
 // SuccessResponse sends a successful response
 func SuccessResponse(c *gin.Context, statusCode int, data interface{}) {
 	traceID := getTraceID(c)
-	
+
 	c.JSON(statusCode, Response{
 		Success: true,
 		Data:    data,
@@ -27,7 +27,7 @@ func SuccessResponse(c *gin.Context, statusCode int, data interface{}) {
 // ErrorResponse sends an error response
 func ErrorResponse(c *gin.Context, statusCode int, err error) {
 	traceID := getTraceID(c)
-	
+
 	c.JSON(statusCode, Response{
 		Success: false,
 		Error:   err.Error(),
@@ -38,7 +38,7 @@ func ErrorResponse(c *gin.Context, statusCode int, err error) {
 // ErrorMessageResponse sends an error response with a custom message
 func ErrorMessageResponse(c *gin.Context, statusCode int, message string) {
 	traceID := getTraceID(c)
-	
+
 	c.JSON(statusCode, Response{
 		Success: false,
 		Error:   message,
@@ -52,7 +52,7 @@ func getTraceID(c *gin.Context) string {
 	if traceID, exists := c.Get("trace_id"); exists {
 		return traceID.(string)
 	}
-	
+
 	// Generate new trace ID if not exists
 	return uuid.New().String()
 }

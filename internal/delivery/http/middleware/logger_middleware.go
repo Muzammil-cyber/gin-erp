@@ -3,9 +3,10 @@ package middleware
 import (
 	"time"
 
+	"log"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"log"
 )
 
 // TraceIDMiddleware adds a trace ID to each request

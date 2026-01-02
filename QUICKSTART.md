@@ -3,6 +3,7 @@
 ## 🎯 Prerequisites Check
 
 Before starting, ensure you have:
+
 - ✅ Go 1.23+ installed
 - ✅ Docker and Docker Compose installed
 - ✅ Git installed
@@ -20,6 +21,7 @@ docker ps
 ```
 
 You should see:
+
 - MongoDB on port 27017
 - Redis on port 6379  
 - Mongo Express (web UI) on port 8081
@@ -56,7 +58,7 @@ make install-tools
 make dev
 ```
 
-The server will start on: **http://localhost:8080**
+The server will start on: **<http://localhost:8080>**
 
 ## 📡 Test the API
 
@@ -67,6 +69,7 @@ curl http://localhost:8080/health
 ```
 
 Expected response:
+
 ```json
 {
   "success": true,
@@ -144,13 +147,15 @@ go test -v ./tests/integration
 
 ## 🗄️ MongoDB Web UI
 
-Access Mongo Express at: **http://localhost:8081**
+Access Mongo Express at: **<http://localhost:8081>**
 
 Credentials:
+
 - Username: `admin`
 - Password: `admin123`
 
 Here you can:
+
 - View the `users` collection
 - View the `refresh_tokens` collection
 - Manually verify data
@@ -314,6 +319,7 @@ Before deploying to production:
 ## 📞 Support
 
 For issues or questions:
+
 - Check the [README.md](README.md) for detailed documentation
 - Review the code comments
 - Check integration tests for usage examples

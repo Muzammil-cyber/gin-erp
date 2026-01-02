@@ -11,6 +11,7 @@ http://localhost:8080/api/v1
 All API responses follow this standard format:
 
 ### Success Response
+
 ```json
 {
   "success": true,
@@ -20,6 +21,7 @@ All API responses follow this standard format:
 ```
 
 ### Error Response
+
 ```json
 {
   "success": false,
@@ -33,6 +35,7 @@ All API responses follow this standard format:
 Most endpoints require authentication using JWT Bearer tokens.
 
 **Header:**
+
 ```
 Authorization: Bearer <access_token>
 ```
@@ -48,6 +51,7 @@ Check if the API is running.
 **Auth Required:** No
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -70,6 +74,7 @@ Register a new user account.
 **Auth Required:** No
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -82,6 +87,7 @@ Register a new user account.
 ```
 
 **Fields:**
+
 - `email` (string, required): Valid email address
 - `phone` (string, required): Pakistani phone number (+923xxxxxxxxx)
 - `password` (string, required): Minimum 8 characters
@@ -90,6 +96,7 @@ Register a new user account.
 - `role` (string, required): One of: `admin`, `customer`, `finance_manager`, `manager`
 
 **Success Response (201):**
+
 ```json
 {
   "success": true,
@@ -111,6 +118,7 @@ Register a new user account.
 ```
 
 **Error Responses:**
+
 - `409 Conflict`: User already exists
 - `400 Bad Request`: Invalid phone format or role
 - `500 Internal Server Error`: Server error
@@ -126,6 +134,7 @@ Verify the OTP sent to user's email.
 **Auth Required:** No
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -134,10 +143,12 @@ Verify the OTP sent to user's email.
 ```
 
 **Fields:**
+
 - `email` (string, required): User's email address
 - `code` (string, required): 6-digit OTP code
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -149,6 +160,7 @@ Verify the OTP sent to user's email.
 ```
 
 **Error Responses:**
+
 - `400 Bad Request`: Invalid OTP or OTP not found
 - `500 Internal Server Error`: Server error
 
@@ -163,6 +175,7 @@ Request a new OTP to be sent.
 **Auth Required:** No
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com"
@@ -170,6 +183,7 @@ Request a new OTP to be sent.
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -181,6 +195,7 @@ Request a new OTP to be sent.
 ```
 
 **Error Responses:**
+
 - `404 Not Found`: User not found
 - `429 Too Many Requests`: OTP already sent, wait before requesting again
 - `500 Internal Server Error`: Server error
@@ -198,6 +213,7 @@ Authenticate and receive access & refresh tokens.
 **Rate Limit:** 5 requests per minute
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -206,6 +222,7 @@ Authenticate and receive access & refresh tokens.
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -228,10 +245,12 @@ Authenticate and receive access & refresh tokens.
 ```
 
 **Token Details:**
+
 - `access_token`: Short-lived token (15 minutes) for API access
 - `refresh_token`: Long-lived token (7 days) for refreshing access tokens
 
 **Error Responses:**
+
 - `401 Unauthorized`: Invalid credentials
 - `403 Forbidden`: User not verified or inactive
 - `429 Too Many Requests`: Rate limit exceeded
@@ -248,6 +267,7 @@ Get a new access token using refresh token.
 **Auth Required:** No
 
 **Request Body:**
+
 ```json
 {
   "refresh_token": "eyJhbGciOiJIUzI1NiIs..."
@@ -255,6 +275,7 @@ Get a new access token using refresh token.
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -272,6 +293,7 @@ Get a new access token using refresh token.
 ```
 
 **Error Responses:**
+
 - `401 Unauthorized`: Invalid, expired, or revoked token
 - `500 Internal Server Error`: Server error
 
@@ -286,11 +308,13 @@ Get authenticated user's profile.
 **Auth Required:** Yes
 
 **Headers:**
+
 ```
 Authorization: Bearer <access_token>
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -309,6 +333,7 @@ Authorization: Bearer <access_token>
 ```
 
 **Error Responses:**
+
 - `401 Unauthorized`: Missing or invalid token
 - `404 Not Found`: User not found
 - `500 Internal Server Error`: Server error
@@ -328,11 +353,13 @@ Access to admin-only operations.
 **Required Role:** `admin`
 
 **Headers:**
+
 ```
 Authorization: Bearer <access_token>
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -344,6 +371,7 @@ Authorization: Bearer <access_token>
 ```
 
 **Error Responses:**
+
 - `401 Unauthorized`: Missing or invalid token
 - `403 Forbidden`: Insufficient permissions
 - `500 Internal Server Error`: Server error
@@ -361,6 +389,7 @@ Access to finance operations.
 **Required Roles:** `admin`, `finance_manager`
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -384,6 +413,7 @@ Access to manager operations.
 **Required Roles:** `admin`, `manager`
 
 **Success Response (200):**
+
 ```json
 {
   "success": true,
@@ -438,6 +468,7 @@ Phone numbers must follow the Pakistani format:
 **Format:** `+923XXXXXXXXX`
 
 **Examples:**
+
 - ✅ `+923001234567`
 - ✅ `+923211234567`
 - ✅ `+923451234567`
@@ -446,6 +477,7 @@ Phone numbers must follow the Pakistani format:
 - ❌ `+923001234` (too short)
 
 The API automatically normalizes phone numbers:
+
 - Converts `03001234567` → `+923001234567`
 - Converts `923001234567` → `+923001234567`
 
@@ -553,6 +585,7 @@ List endpoints will support pagination with these query parameters:
 ## Changelog
 
 ### Version 1.0.0 (Current)
+
 - Initial release
 - Authentication & authorization
 - User management

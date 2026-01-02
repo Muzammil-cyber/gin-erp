@@ -8,21 +8,21 @@ import (
 )
 
 type Config struct {
-	App      AppConfig
-	MongoDB  MongoDBConfig
-	Redis    RedisConfig
-	JWT      JWTConfig
-	OTP      OTPConfig
+	App       AppConfig
+	MongoDB   MongoDBConfig
+	Redis     RedisConfig
+	JWT       JWTConfig
+	OTP       OTPConfig
 	RateLimit RateLimitConfig
-	SMTP     SMTPConfig
-	CORS     CORSConfig
+	SMTP      SMTPConfig
+	CORS      CORSConfig
 }
 
 type AppConfig struct {
-	Name    string
-	Env     string
-	Port    string
-	Debug   bool
+	Name  string
+	Env   string
+	Port  string
+	Debug bool
 }
 
 type MongoDBConfig struct {
