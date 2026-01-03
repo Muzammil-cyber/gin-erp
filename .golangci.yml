@@ -1,0 +1,58 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+  modules-download-mode: readonly
+
+linters:
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - misspell
+    - revive
+    - gosec
+  settings:
+    errcheck:
+      check-blank: false
+      check-type-assertions: false
+    revive:
+      rules:
+        - name: blank-imports
+        - name: context-as-argument
+        - name: dot-imports
+        - name: error-return
+        - name: error-strings
+        - name: error-naming
+        - name: if-return
+        - name: increment-decrement
+        - name: range
+        - name: receiver-naming
+        - name: indent-error-flow
+        - name: superfluous-else
+        - name: unreachable-code
+        # Disabled comment-related rules
+        - name: exported
+          disabled: true
+        - name: package-comments
+          disabled: true
+        - name: var-naming
+          disabled: true
+        # Exclude some linters from running on tests files
+  exclusions:
+    rules:
+      - path: _test\.go
+        linters:
+        - gosec
+        - errcheck
+        - misspell
+
+issues:
+
+  max-issues-per-linter: 0
+  max-same-issues: 0
+  
+  
