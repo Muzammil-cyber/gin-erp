@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 
@@ -37,9 +38,15 @@ func TestLoginIntegration(t *testing.T) {
 	// Setup test environment
 	ctx := context.Background()
 
+	// Get MongoDB URI from environment or use default
+	mongoURI := os.Getenv("MONGODB_URI")
+	if mongoURI == "" {
+		mongoURI = "mongodb://localhost:27017"
+	}
+
 	// Initialize test database connections
 	mongoClient, err := mongodb.NewMongoDBClient(
-		"mongodb://localhost:27017",
+		mongoURI,
 		"test_pakistani_erp",
 		10,
 		5,
@@ -47,9 +54,24 @@ func TestLoginIntegration(t *testing.T) {
 	require.NoError(t, err, "Failed to connect to MongoDB")
 	defer mongoClient.Close(ctx)
 
+	// Get Redis address from environment or use default
+	redisAddr := os.Getenv("REDIS_ADDR")
+	if redisAddr == "" {
+		redisAddr = "localhost:6379"
+	}
+	redisHost := "localhost"
+	redisPort := "6379"
+	if redisAddr != "" {
+		// Split host:port if provided
+		if idx := len(redisAddr) - 5; idx > 0 && redisAddr[idx] == ':' {
+			redisHost = redisAddr[:idx]
+			redisPort = redisAddr[idx+1:]
+		}
+	}
+
 	redisClient, err := redis.NewRedisClient(
-		"localhost",
-		"6379",
+		redisHost,
+		redisPort,
 		"",
 		1, // Use DB 1 for tests
 	)
