@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"log"
 	"time"
 
 	domain "github.com/muzammil-cyber/gin-erp/internal/domain/auth"
@@ -155,6 +156,7 @@ func (uc *AuthUseCaseImpl) Login(ctx context.Context, req *domain.LoginRequest) 
 	// Update last login
 	if err := uc.userRepo.UpdateLastLogin(ctx, user.ID); err != nil {
 		// Log error but don't fail the login
+		log.Printf("Failed to update last login for user %s: %v", user.ID.Hex(), err)
 	}
 
 	return &domain.AuthResponse{
@@ -185,6 +187,7 @@ func (uc *AuthUseCaseImpl) VerifyOTP(ctx context.Context, req *domain.VerifyOTPR
 	// Delete OTP from Redis
 	if err := uc.otpRepo.Delete(ctx, req.Email); err != nil {
 		// Log error but don't fail
+		log.Printf("Failed to delete OTP for email %s: %v", req.Email, err)
 	}
 
 	return nil
@@ -293,11 +296,7 @@ func (uc *AuthUseCaseImpl) ResendOTP(ctx context.Context, email string) error {
 		return err
 	}
 
-	if err := uc.emailService.SendOTP(ctx, email, otp); err != nil {
-		return err
-	}
-
-	return nil
+	return uc.emailService.SendOTP(ctx, email, otp)
 }
 
 // GetUserByID retrieves a user by ID

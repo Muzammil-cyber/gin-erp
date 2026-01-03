@@ -2,6 +2,7 @@ package middleware
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -39,6 +40,7 @@ func RateLimiterMiddleware(rateLimiter domain.RateLimiterRepository, limit int, 
 		// Increment counter
 		if err := rateLimiter.IncrementCounter(c.Request.Context(), key, windowSeconds); err != nil {
 			// Log error but don't fail the request
+			log.Printf("Rate limiter increment error: %v", err)
 		}
 
 		c.Next()
@@ -68,6 +70,7 @@ func LoginRateLimiterMiddleware(rateLimiter domain.RateLimiterRepository, limit 
 		// Increment counter
 		if err := rateLimiter.IncrementCounter(c.Request.Context(), key, 60); err != nil {
 			// Log error but don't fail the request
+			log.Printf("Rate limiter increment error: %v", err)
 		}
 
 		c.Next()

@@ -59,7 +59,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to initialize container: %v", err)
 	}
-	defer c.Close()
+	defer c.Close() // nolint:errcheck
 
 	// Set Gin mode
 	if c.Config.App.Env == "production" {

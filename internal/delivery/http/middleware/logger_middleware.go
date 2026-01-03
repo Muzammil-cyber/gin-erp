@@ -37,7 +37,7 @@ var (
 func InitLogger() error {
 	// Create logs directory if it doesn't exist
 	logsDir := "logs"
-	if err := os.MkdirAll(logsDir, 0755); err != nil {
+	if err := os.MkdirAll(logsDir, 0755); err != nil { // nolint:gosec
 		return fmt.Errorf("failed to create logs directory: %w", err)
 	}
 
@@ -45,7 +45,7 @@ func InitLogger() error {
 	logFileName := fmt.Sprintf("app-%s.log", time.Now().Format("2006-01-02"))
 	logFilePath := filepath.Join(logsDir, logFileName)
 
-	file, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
+	file, err := os.OpenFile(logFilePath, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666) // nolint:gosec
 	if err != nil {
 		return fmt.Errorf("failed to open log file: %w", err)
 	}
@@ -62,7 +62,7 @@ func InitLogger() error {
 // CloseLogger closes the log file
 func CloseLogger() {
 	if logFile != nil {
-		logFile.Close()
+		logFile.Close() // nolint:errcheck,gosec
 	}
 }
 

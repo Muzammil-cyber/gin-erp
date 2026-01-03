@@ -19,6 +19,11 @@ func NewMongoDBClient(uri, dbName string, maxPoolSize, minPoolSize int) (*Client
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
+	// Validate pool sizes to prevent integer overflow
+	if maxPoolSize < 0 || minPoolSize < 0 {
+		return nil, fmt.Errorf("pool sizes must be non-negative")
+	}
+
 	clientOptions := options.Client().
 		ApplyURI(uri).
 		SetMaxPoolSize(uint64(maxPoolSize)).
